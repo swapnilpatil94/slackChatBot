@@ -3,13 +3,14 @@ import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT} from '../actions/actionTypes';
 const initialState={
     token: localStorage.getItem('userToken'),
     isAuthenticated: false,
-    loading: true,
-    user: null
+    loading: null,
+    user: null,
 };
 
 export default function auth(state=initialState,action){
     const {type,payload} = action;
 
+    console.log("USER", payload)
     switch (type) {
         case LOGIN_SUCCESS:         
             localStorage.setItem('userToken',payload.code);

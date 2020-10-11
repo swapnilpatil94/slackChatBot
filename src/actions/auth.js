@@ -1,20 +1,22 @@
 import axios from 'axios';
-import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT} from './actionTypes';
-
+import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT,SCHEDULE_MSG_LIST} from './actionTypes';
+// import {msgList} from './msgList'
 export const login = (data) => async dispatch => {
 
     try {
         if(data){
             const res = await axios.post('https://django-slack-bot.herokuapp.com/events/auth/',{code:data});
-  
+            // msgList(res.data.code);   
+
+     
             if(res){
-                console.log('yash')
-             return dispatch({
+
+             dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
                 } )
-        
-           }
+            
+            }
         }
         
     } catch (error) {
@@ -28,25 +30,6 @@ export const login = (data) => async dispatch => {
 };
 
 
-
-// // load User 
-// export const loadUser = (data) => async dispatch => {
-//     try {
-//         const res = await axios.post('https://django-slack-bot.herokuapp.com/events/auth/',{code:data});
-  
-//     if(res){
-//      return dispatch({
-//             type: LOGIN_SUCCESS,
-//            payload: res.data
-//         } )
-//      }
-    
-//     } catch (err) {
-//         dispatch({
-//             type: LOGIN_FAIL
-//         });
-//     }
-// }
 
 
 export const logOut = (dispatch)=>{
