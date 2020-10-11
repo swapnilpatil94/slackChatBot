@@ -6,15 +6,20 @@ import Grid from "@material-ui/core/Grid";
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
 
 import SendMsgLayout from '../Layout/SendMsg';
 import ScheduleMsg from '../Layout/ScheduleMsg';
+import Header from '../Layout/Header';
+import Footer from '../Layout/Footer';
+import TaskList from './TaskList';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundImage:`URL("bot.jpeg")`,
+    // backgroundImage:`URL("bot.jpeg")`,
+    background:'radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), rgb(15, 1, 94))',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     height:'100vh'
@@ -25,7 +30,17 @@ const useStyles = makeStyles((theme) => ({
   buttonsLocation:{
     position:'absolute',
     top:'50%'
-  }
+  },
+  TaskList:{
+    width:'70%',
+    marginLeft:'10vw',
+    marginTop:'3vw'
+
+  },
+  typo:{
+    color:'white',
+    padding:'1vw'
+  },
 }));
 
 
@@ -58,22 +73,29 @@ const Main= ({isAuthenticated,userData}) => {
   }
   return (
   <div className={classes.root}>
+    <Header />
 
-    <Grid container className={classes.buttonsLocation}  direction="column"     justify="center"  alignItems="center" >
-    
-      <Grid item xs={12} sm={6}>
-        <Button className={classes.button} variant="contained" color="secondary" onClick={handleSendMsg} > 
-          Send message
-        </Button>
-      </Grid>
+    <Grid container className={classes.TaskList} >
+    <Typography variant="h6" className={classes.typo}>
+            Schedule Messages
+          </Typography>
+          {/*TaskList Map */}
 
-      <Grid item xs={12} sm={6}>
-        <Button className={classes.button}  variant="contained" color="primary"   onClick={handleScheduleMsg} >
-          Schedule message
-        </Button>
-      </Grid>
+    {
+     userData?.messages.map((msg, index)=>{
+     
+     return <TaskList
+              key={msg.id}
+              msg={msg.text}
+              channelName={msg.name} 
+              countDown={msg.post_at} 
+            />
 
+     })
+    }
 
+      <Footer handleSendMsg={handleSendMsg}  handleScheduleMsg={handleScheduleMsg} />
+     
       <Slide direction="down" timeout={4000}>
 
       <SendMsgLayout
@@ -95,6 +117,7 @@ const Main= ({isAuthenticated,userData}) => {
         />
 
 
+
     </Grid>
 
   </div>
@@ -104,9 +127,10 @@ const Main= ({isAuthenticated,userData}) => {
 
 const mapStateToProps =state=>{
 return{
+
     isAuthenticated: state.auth.isAuthenticated,
-  loading:state.auth.loading,
-  userData :state.auth.user
+    loading:state.auth.loading,
+    userData :state.auth.user
 }
 }
 
