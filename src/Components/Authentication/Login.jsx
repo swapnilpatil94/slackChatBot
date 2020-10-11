@@ -7,29 +7,56 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-
+import Paper from '@material-ui/core/Paper';
+import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import SlackLogin from './SlackLogin'
 import { useSnackbar } from 'notistack';
 import { Box } from "@material-ui/core";
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {login} from '../../actions/auth'
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    color: "gray",
-    marginTop: "8%",
-    marginLeft: "25%",
+    color: "#daa8a8",
+    marginTop: "10vw",
+    marginLeft: "25vw",
     width: "50%",
     justifyContent: "center",
+      background:'radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), rgb(15, 1, 94))',
+      height:'50vh'
   },
   title: {
     display: "flex",
-    marginTop: "2%",
-    color: "#408CAA ",
+    margin:'0',
+    color: "#eaeaea ",
     width: "100%",
     justifyContent: "center",
+  },
+  slackLogin:{
+    justifyContent: "center",
+    marginTop:"15vw",
+    marginLeft:"20vw"
+  },
+  paperStyle:{
+    justifyContent: "center",
+    alignItems:'center',
+    marginTop:'15vw',
+    padding:'1vw'
+  },
+  typo:{
+    color:'#4684b9'
+  },
+  login:{
+    color:'#f9f9f9'
+
+  }, 
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
 }));
 
@@ -38,6 +65,7 @@ function Login({isAuthenticated,loading,login,userData}) {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSuccess = async(data) => {
+    console.log(data)
     login(data)
     enqueueSnackbar('Login Successfully!',{variant:'success'})
   };
@@ -59,7 +87,10 @@ function Login({isAuthenticated,loading,login,userData}) {
 
 
   return (
-    <Fragment>
+    <div style={{width:'100vw',height:'100vh',  background:'radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), rgb(15, 1, 94))'  }}>
+      <Backdrop className={classes.backdrop} open={loading} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid container spacing={3} m={5} className={classes.title}>
         <Typography variant={"h3"} m={5}>
           {" "}
@@ -67,11 +98,38 @@ function Login({isAuthenticated,loading,login,userData}) {
         </Typography>
       </Grid>
 
-      <Grid container spacing={3} m={5} className={classes.root}>
-        <Typography variant={"h4"}> Login</Typography>
+      <Grid container>
 
-        <Grid item xs={12} sm={12}>
-          <Box>
+        {/* <Typography variant={"h6"}> Please login to use ChatterBot</Typography> */}
+
+        <Grid item xs={6} sm={6}>
+          <Box mt={3} className={classes.paperStyle}> 
+          <Paper elevation={3} > 
+          
+          <div style={{padding:'1vw'}}>
+          <Typography variant={"h5"}><WbIncandescentIcon /> Features :</Typography> 
+
+            <Typography className={classes.typo}  variant={"subtitle1"}><CheckCircleOutlineIcon />  Send message as user/Bot</Typography> 
+            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Schedule message</Typography> 
+            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> List of schedule message</Typography> 
+            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Delete schedule message</Typography> 
+            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Get the countdown of schedule message</Typography> 
+
+          </div>
+          </Paper>
+
+          </Box>
+        
+
+        </Grid>
+
+        <Grid item xs={6} sm={6} spacing={3}>
+
+          <Box className={classes.slackLogin}> 
+          <Typography  className={classes.login} variant={"h5"} >Login</Typography> 
+          <br></br>
+
+            <Box>
             <SlackLogin
             redirectUrl='http://localhost:3000/main'
             // redirectUrl= "https://django-slack-bot.herokuapp.com/events/login/"
@@ -80,6 +138,7 @@ function Login({isAuthenticated,loading,login,userData}) {
             slackClientId='1405998980963.1405793023842'
             slackUserScope='chat:write'        
             />
+            </Box>
           </Box>
         
 
@@ -87,11 +146,10 @@ function Login({isAuthenticated,loading,login,userData}) {
        
         
       </Grid>
-    </Fragment>
+    </div>
   );
 }
 const mapStateToProps = state => {
-console.log("STATE",state)
   return{
   isAuthenticated: state.auth.isAuthenticated,
   loading:state.auth.loading,
