@@ -12,7 +12,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {connect} from 'react-redux'
-
+import {logOut} from '../../actions/auth'
+import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,11 +31,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header= ({userData}) =>{
+const Header= ({userData,logOut}) =>{
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { enqueueSnackbar } = useSnackbar();
+
+  let history = useHistory();
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -45,6 +51,14 @@ const Header= ({userData}) =>{
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogOut =()=>{
+    logOut()
+    enqueueSnackbar("LogOut Successfully", { variant: "success" });
+
+    localStorage.removeItem('user_token');
+    history.push("/");
+  }
 
   return (
     <div>
@@ -88,7 +102,7 @@ const Header= ({userData}) =>{
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleLogOut}>Logout</MenuItem>
               </Menu>
             </div>
           )}
@@ -104,4 +118,4 @@ const mapStateToProps = state => {
     }}
     
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,{logOut})(Header);

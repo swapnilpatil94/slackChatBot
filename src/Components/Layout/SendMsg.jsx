@@ -13,10 +13,10 @@ import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
 
 import { useSnackbar } from "notistack";
-import {SendMsg} from '../../actions/sendMsg'
+import {SendMsgNew} from '../../actions/sendMsg'
 
 
-const SendMsgLayout =({ open, onClose, categories,SendMsg })=> {
+const SendMsgLayout =({ open, onClose, categories,SendMsgNew })=> {
   const [channel, setChannel] = React.useState("channel");
   const [msg, setMsg] = React.useState("");
   const [userBotOption,setUserBotOption]= React.useState('Select option to send');
@@ -67,7 +67,8 @@ const SendMsgLayout =({ open, onClose, categories,SendMsg })=> {
       ...data,
     });
   
-    SendMsg(data)
+    SendMsgNew(data)
+    enqueueSnackbar("Sent Message Successfully", { variant: "success" });
 
     
     onClose();
@@ -149,4 +150,4 @@ const SendMsgLayout =({ open, onClose, categories,SendMsg })=> {
 
 
 
-export default connect(null,{SendMsg} )(SendMsgLayout);
+export default connect(null,{SendMsgNew} )(SendMsgLayout);

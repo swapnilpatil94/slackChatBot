@@ -74,7 +74,7 @@ const ScheduleMsg= ({ open, onClose, SendMsg, categories })=> {
     });
 
     SendMsg(data)
-    console.log('DAAATA',data)
+    enqueueSnackbar("Schedule Message Successfully", { variant: "success" });
     
     onClose();
   };

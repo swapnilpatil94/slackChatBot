@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -63,6 +63,12 @@ const useStyles = makeStyles((theme) => ({
 function Login({isAuthenticated,loading,login,userData}) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+ 
+  const [openLoader,setOpenLoader] = useState();
+  const handleLogin =()=>{
+    setOpenLoader(true)
+
+  }
 
   const onSuccess = async(data) => {
     console.log(data)
@@ -88,7 +94,7 @@ function Login({isAuthenticated,loading,login,userData}) {
 
   return (
     <div style={{width:'100vw',height:'100vh',  background:'radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), rgb(15, 1, 94))'  }}>
-      <Backdrop className={classes.backdrop} open={loading} >
+      <Backdrop className={classes.backdrop} open={openLoader} onClose={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <Grid container spacing={3} m={5} className={classes.title}>
@@ -129,7 +135,7 @@ function Login({isAuthenticated,loading,login,userData}) {
           <Typography  className={classes.login} variant={"h5"} >Login</Typography> 
           <br></br>
 
-            <Box>
+            <Button onClick={handleLogin}>
             <SlackLogin
             redirectUrl='http://localhost:3000/main'
             // redirectUrl= "https://django-slack-bot.herokuapp.com/events/login/"
@@ -138,7 +144,7 @@ function Login({isAuthenticated,loading,login,userData}) {
             slackClientId='1405998980963.1405793023842'
             slackUserScope='chat:write'        
             />
-            </Box>
+            </Button>
           </Box>
         
 

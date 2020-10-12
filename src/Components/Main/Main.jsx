@@ -7,6 +7,7 @@ import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
+import { useSnackbar } from "notistack";
 
 import SendMsgLayout from '../Layout/SendMsg';
 import ScheduleMsg from '../Layout/ScheduleMsg';
@@ -44,16 +45,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Main= ({isAuthenticated,userData}) => {
+const Main= ({isAuthenticated,userData,messages,delSuc}) => {
   const classes = useStyles();
   const [sendMsg,setSendMsg] = useState(Boolean);
   const [scheduleMsg,setScheduleMsg] = useState(Boolean);
   const [category,setCategory] = useState();
+  const { enqueueSnackbar } = useSnackbar();
+  const[msgData,setMsgData]=useState(messages)
 
   useEffect(()=>{
     setCategory(userData?.channels)
 
   },[])
+
+  useEffect(()=>{
+    setMsgData(messages)
+    console.log('msgDF',msgData)
+  },[messages])
   
   // setTimeout(()=>{
   //   if(!isAuthenticated){
@@ -63,6 +71,10 @@ const Main= ({isAuthenticated,userData}) => {
   // },2000)
   
   
+  if(delSuc){
+    return enqueueSnackbar("Message Deleted Successfully", { variant: "success" });
+
+  }
 
   const handleSendMsg =()=>{
     setSendMsg(true)
@@ -82,13 +94,15 @@ const Main= ({isAuthenticated,userData}) => {
           {/*TaskList Map */}
 
     {
-     userData?.messages.map((msg, index)=>{
+     !(msgData===undefined) && msgData?.map((msg, index)=>{
      
      return <TaskList
               key={msg.id}
               msg={msg.text}
               channelName={msg.name} 
               countDown={msg.post_at} 
+              delKey= {msg.id}
+              channel_id={msg.channel_id}
             />
 
      })
@@ -130,7 +144,8 @@ return{
 
     isAuthenticated: state.auth.isAuthenticated,
     loading:state.auth.loading,
-    userData :state.auth.user
+    userData :state.auth.user,
+    messages:state.auth.messages
 }
 }
 
