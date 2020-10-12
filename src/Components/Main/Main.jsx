@@ -1,11 +1,8 @@
 import React,{useEffect, useState} from 'react';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from "@material-ui/core/Grid";
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from "notistack";
 
@@ -19,7 +16,6 @@ import TaskList from './TaskList';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // backgroundImage:`URL("bot.jpeg")`,
     background:'radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), rgb(15, 1, 94))',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',

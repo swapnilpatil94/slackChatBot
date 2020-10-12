@@ -1,11 +1,9 @@
 import axios from 'axios';
 import {SENDMSG_SUCCESSFUL,SENDMSG_FAIL} from './actionTypes';
-import { useSnackbar } from "notistack";
 
 
 export const SendMsg = (data) => async (dispatch) => {
     console.log("setSendMsgSw",data)
-    // const { enqueueSnackbar } = useSnackbar();
 
     try {
         const body={
@@ -20,11 +18,7 @@ export const SendMsg = (data) => async (dispatch) => {
             "user_token":localStorage.getItem('userToken'),
         }
         const responseSend= await axios.post("https://django-slack-bot.herokuapp.com/events/message/",body);
-            // if(responseSend.messages){
-            //     // enqueueSnackbar('Schedule message successfully')
-            // }else  enqueueSnackbar('Sent message successfully')
-
-       
+          
         if(responseSend){
             dispatch({
                 type: SENDMSG_SUCCESSFUL,
@@ -47,8 +41,6 @@ export const SendMsg = (data) => async (dispatch) => {
 
 export const SendMsgNew = (data) => async (dispatch) => {
     console.log("setSendMsgSw",data)
-    // const { enqueueSnackbar } = useSnackbar();
-
     try {
         const body={
             "message": data.msg,

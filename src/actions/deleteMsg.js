@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {DELETE_SUCCESS} from './actionTypes';
-// import {msgList} from './msgList'
 export const deleteMsg = (data) => async dispatch => {
 
     console.log('Conne',data)

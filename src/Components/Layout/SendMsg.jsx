@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
 
 import { useSnackbar } from "notistack";

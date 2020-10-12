@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import axios from "axios";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -105,8 +103,6 @@ function Login({isAuthenticated,loading,login,userData}) {
       </Grid>
 
       <Grid container>
-
-        {/* <Typography variant={"h6"}> Please login to use ChatterBot</Typography> */}
 
         <Grid item xs={6} sm={6}>
           <Box mt={3} className={classes.paperStyle}> 
