@@ -7,13 +7,14 @@ export const login = (data) => async dispatch => {
             const res = await axios.post('https://django-slack-bot.herokuapp.com/events/auth/',{code:data});
     
             if(res){
-
+            console.log('UserDataa',res)
              dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
                 } )
             
             }
+        
         }
         
     } catch (error) {

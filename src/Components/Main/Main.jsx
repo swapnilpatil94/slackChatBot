@@ -8,6 +8,7 @@ import { useSnackbar } from "notistack";
 import { Link, Redirect } from "react-router-dom";
 import SendMsgLayout from '../Layout/SendMsg';
 import ScheduleMsg from '../Layout/ScheduleMsg';
+import AddChannelLayout from'../Layout/AddChannel';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import TaskList from './TaskList';
@@ -41,18 +42,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Main= ({isAuthenticated,userData,messages,delSuc}) => {
+const Main= ({isAuthenticated,userData,messages,delSuc,channels}) => {
   const classes = useStyles();
   const [sendMsg,setSendMsg] = useState(Boolean);
   const [scheduleMsg,setScheduleMsg] = useState(Boolean);
-  const [category,setCategory] = useState();
-  const { enqueueSnackbar } = useSnackbar();
+  const [category,setCategory] = useState(channels);
   const[msgData,setMsgData]=useState(messages)
+  const [addChannel,setAddChannel] =useState();
+  const { enqueueSnackbar } = useSnackbar();
+
+  // useEffect(()=>{
+  //   setCategory(userData?.channels)
+
+  // },[])
 
   useEffect(()=>{
-    setCategory(userData?.channels)
-
-  },[])
+    setCategory(channels)
+    console.log('setCategory',category)
+  },[channels])
 
   useEffect(()=>{
     setMsgData(messages)
@@ -78,6 +85,10 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
   const handleScheduleMsg =()=>{
     setScheduleMsg(true)
   }
+
+const handleAddChannel= ()=>{
+    setAddChannel(true)
+}
   return (
     <Fragment >
  {
@@ -107,7 +118,7 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
      })
     }
 
-      <Footer handleSendMsg={handleSendMsg}  handleScheduleMsg={handleScheduleMsg} />
+      <Footer handleSendMsg={handleSendMsg} handleAddChannel={handleAddChannel}  handleScheduleMsg={handleScheduleMsg} />
      
       <Slide direction="down" timeout={4000}>
 
@@ -129,6 +140,13 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
           categories={category}
         />
 
+        <AddChannelLayout
+          open={addChannel}
+          onClose={() => {
+            setAddChannel(!addChannel);
+          }}
+          // addTask={addTask}
+        />
 
 
     </Grid>
@@ -149,7 +167,8 @@ return{
     isAuthenticated: state.auth.isAuthenticated,
     loading:state.auth.loading,
     userData :state.auth.user,
-    messages:state.auth.messages
+    messages:state.auth.messages,
+    channels:state.auth.channels
 }
 }
 

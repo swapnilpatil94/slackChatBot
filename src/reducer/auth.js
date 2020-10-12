@@ -1,5 +1,5 @@
 import { Redirect } from 'react-router-dom';
-import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT,DELETE_SUCCESS,SENDMSG_SUCCESSFUL} from '../actions/actionTypes';
+import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT,DELETE_SUCCESS,SENDMSG_SUCCESSFUL,ADD_CHANNEL} from '../actions/actionTypes';
 
 const initialState={
     token: localStorage.getItem('userToken'),
@@ -7,7 +7,8 @@ const initialState={
     loading: false,
     user: null,
     messages:null,
-    delSuc:false
+    delSuc:false,
+    channels:null
 };
 
 export default function auth(state=initialState,action){
@@ -23,7 +24,8 @@ export default function auth(state=initialState,action){
                 loading:true,
                 isAuthenticated: true,
                 user:payload,
-                messages:payload.messages
+                messages:payload.messages,
+                channels:payload.channels
             }
 
         case LOGOUT:  
@@ -50,12 +52,18 @@ export default function auth(state=initialState,action){
            
         }
         case DELETE_SUCCESS :
-            console.log('DelMsg',payload);
-
             return{
                 ...state,
                 messages: payload.data.messages,
                 delSuc:true
+            }
+        case ADD_CHANNEL:
+            console.log('AddChannel:',payload);
+
+            return{
+                ...state,
+                channels: payload.data.channels,
+
             }
         default:
             return{ ...state};

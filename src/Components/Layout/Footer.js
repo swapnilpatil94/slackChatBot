@@ -47,15 +47,21 @@ const Footer=(props)=> {
    
       <AppBar position="fixed"  className={classes.appBar}>
         <Toolbar>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
             <Button className={classes.button} variant="contained"  onClick={props.handleSendMsg} > 
             Send message 
             </Button>
         </Grid> 
 
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={4}>
         <Button className={classes.button}  variant="contained"    onClick={props.handleScheduleMsg} >
           Schedule message
+        </Button>
+      </Grid>
+
+      <Grid item xs={12} sm={4}>
+        <Button className={classes.button}  variant="contained"    onClick={props.handleAddChannel} >
+          Add Channel
         </Button>
       </Grid>
 
