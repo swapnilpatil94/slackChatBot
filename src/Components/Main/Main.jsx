@@ -1,17 +1,17 @@
-import React,{useEffect, useState} from 'react';
+import React,{Fragment, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux'
 import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from "notistack";
-
+import { Link, Redirect } from "react-router-dom";
 import SendMsgLayout from '../Layout/SendMsg';
 import ScheduleMsg from '../Layout/ScheduleMsg';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import TaskList from './TaskList';
-
+import Placeholder from '../../Components/Layout/placeHolder'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,17 +59,16 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
     console.log('msgDF',msgData)
   },[messages])
   
-  // setTimeout(()=>{
-  //   if(!isAuthenticated){
-  //     return  <Redirect to='/' />
-  //  }
- 
-  // },2000)
-  
+    // if(!msgData){
+    //   return  <Redirect to='/' />
+    // }
+
+    // if(!isAuthenticated){
+    //   alert('Please Login to use the app')
+    // }
   
   if(delSuc){
     return enqueueSnackbar("Message Deleted Successfully", { variant: "success" });
-
   }
 
   const handleSendMsg =()=>{
@@ -80,13 +79,17 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
     setScheduleMsg(true)
   }
   return (
-  <div className={classes.root}>
+    <Fragment >
+ {
+   !userData ? <Placeholder /> : 
+
+ <div className={classes.root}>
     <Header />
 
     <Grid container className={classes.TaskList} >
     <Typography variant="h6" className={classes.typo}>
             Schedule Messages
-          </Typography>
+      </Typography>
           {/*TaskList Map */}
 
     {
@@ -131,7 +134,12 @@ const Main= ({isAuthenticated,userData,messages,delSuc}) => {
     </Grid>
 
   </div>
-  );
+ 
+ 
+ 
+}
+</Fragment>
+); 
 }
 
 
