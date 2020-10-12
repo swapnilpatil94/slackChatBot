@@ -5,3 +5,5 @@ export const LOGOUT = 'LOGOUT';
 
 export const SENDMSG_SUCCESSFUL ="SENDMSG_SUCCESSFUL";
 export const SENDMSG_FAIL = 'SENDMSG_FAIL';
+export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+

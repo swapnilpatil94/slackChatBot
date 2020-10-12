@@ -32,7 +32,7 @@ export const login = (data) => async dispatch => {
 
 
 
-export const logOut = (dispatch)=>{
+export const logOut = ()=>(dispatch)=>{
     dispatch({
         type: LOGOUT
     });
