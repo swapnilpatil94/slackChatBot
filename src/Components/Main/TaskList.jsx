@@ -22,20 +22,27 @@ const useStyles = makeStyles((theme) => ({
     marginBottom:'1vh'
   },
   heading: {
+
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    // flexBasis: '33.33%',
     flexShrink: 0,
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+    paddingLeft:' 3vw'
   },
   delete:{
       color:'red'
   },
   delBox:{
       marginLeft:'40%'
+  },
+  channel:{
+    color: theme.palette.text.secondary,
+
   }
+  
 }));
 
 const TaskList= (props)=> {
@@ -67,16 +74,16 @@ const TaskList= (props)=> {
           id="panel1bh-header"
         >
           <Typography className={classes.heading}>{props.msg}</Typography>
-          <Typography className={classes.secondaryHeading}>
-            {/* {  moment(props.countDown).format('DD-MM-YYYY HH:mm:ss').fromNow()}    */}
-            Schedual at : {props.countDown}
-       </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography className={classes.channel}>
           Channel:      { props.channelName} 
         </Typography> 
 
+        <Typography className={classes.secondaryHeading}>
+            {/* {  moment(props.countDown).format('DD-MM-YYYY HH:mm:ss').fromNow()}    */}
+            Schedual at : {props.countDown}
+       </Typography>
         <Box className={classes.delBox} onClick={()=>{
             // console.log('k',props.delKey)
             let data ={

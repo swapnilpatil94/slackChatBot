@@ -72,6 +72,7 @@ const Header= ({userData,logOut}) =>{
                 onClick={handleMenu}
                 color="inherit"
               >
+                {/* <AccountCircle /> */}
                 <div>
                     <img   style={{borderRadius:'50%'}} width={40} height={40} src={userData?.user_info.image_original} />
                 </div>
