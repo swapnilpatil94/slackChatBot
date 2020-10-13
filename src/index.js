@@ -13,7 +13,10 @@ import { theme } from './Components/Layout/theme';
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
-    <SnackbarProvider>
+    <SnackbarProvider    anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }}>
     <Provider store={store}>     
       <App />
     </Provider>

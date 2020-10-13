@@ -16,7 +16,7 @@ import {SendMsgNew} from '../../actions/sendMsg'
 import {AddChannel} from '../../actions/addChannel'
 
 const AddChannelLayout =({ open, onClose, AddChannel })=> {
-  const [channel, setChannel] = React.useState("channel");
+  const [channel, setChannel] = React.useState("");
  
   const formData = {
     channel: "",
@@ -36,8 +36,9 @@ const AddChannelLayout =({ open, onClose, AddChannel })=> {
 
   const handleSubmit = () => {
   
-    if (!channel)
-      return enqueueSnackbar("Please Add channel Name", { variant: "warning" });
+    if (channel==="" || !channel ||channel.length<1){
+        return enqueueSnackbar("Please Add channel Name", { variant: "warning" });
+    }
   
 
     let data = {

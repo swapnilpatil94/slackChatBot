@@ -43,7 +43,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems:'center',
     marginTop:'15vw',
-    padding:'1vw'
+    padding:'1vw',
+  },
+  papercolor:{
+    background: '#fbe4ff'
+
   },
   typo:{
     color:'#4684b9'
@@ -106,16 +110,15 @@ function Login({isAuthenticated,loading,login,userData}) {
 
         <Grid item xs={6} sm={6}>
           <Box mt={3} className={classes.paperStyle}> 
-          <Paper elevation={3} > 
+          <Paper elevation={3} className={classes.papercolor}> 
           
           <div style={{padding:'1vw'}}>
           <Typography variant={"h5"}><WbIncandescentIcon /> Features :</Typography> 
 
             <Typography className={classes.typo}  variant={"subtitle1"}><CheckCircleOutlineIcon />  Send message as user/Bot</Typography> 
-            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Schedule message</Typography> 
+            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Create Schedule message as user/Bot</Typography> 
             <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> List of schedule message</Typography> 
             <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Delete schedule message</Typography> 
-            <Typography className={classes.typo}  variant={"subtitle1"}> <CheckCircleOutlineIcon /> Get the countdown of schedule message</Typography> 
 
           </div>
           </Paper>

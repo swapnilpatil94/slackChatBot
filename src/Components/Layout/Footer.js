@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     // background: "linear-gradient(90deg, #efd5ff 0%, #515ada 100%)"
     // background: "linear-gradient(90deg, #1CB5E0 0%, #000851 100%)",
     // background: "linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)",
-        background: "linear-gradient(90deg, #4b6cb7 0%, #182848 100%)"
+        background: "linear-gradient(90deg, #4b6cb7 0%, #37b448 100%)"
 
  },
  
