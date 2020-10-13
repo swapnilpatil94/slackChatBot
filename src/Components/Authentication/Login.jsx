@@ -136,7 +136,7 @@ function Login({isAuthenticated,loading,login,userData}) {
 
             <Button onClick={handleLogin}>
             <SlackLogin
-            redirectUrl='http://localhost:3000/main'
+            redirectUrl='https://chatterbot-self.vercel.app/main'
             // redirectUrl= "https://django-slack-bot.herokuapp.com/events/login/"
             onFailure={onFailed}
             onSuccess={onSuccess}
